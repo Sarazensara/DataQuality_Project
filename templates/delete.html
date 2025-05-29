@@ -1,0 +1,32 @@
+<!-- templates/delete.html -->
+{% extends "index.html" %}
+
+{% block content %}
+  <h2>Create a Data Quality Rule</h2>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul>
+        {% for category, message in messages %}
+          <li><strong>{{ category.title() }}</strong>: {{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+  <form method="POST">
+    <label>Table Name: <input type="text" name="table" required></label><br><br>
+    <label>Column Name: <input type="text" name="column" required></label><br><br>
+    <label>Rule Description:<br>
+      <textarea name="description" rows="4" cols="50" required></textarea>
+    </label><br><br>
+    <button type="submit">Generate and Insert Rule</button>
+  </form>
+
+  <hr>
+
+  <h2>Delete a Data Quality Rule</h2>
+  <form method="POST" action="/delete">
+    <label>Table Name: <input type="text" name="table" required></label><br><br>
+    <label>Rule ID: <input type="text" name="rule_id" required></label><br><br>
+    <button type="submit">Delete Rule</button>
+  </form>
+{% endblock %}

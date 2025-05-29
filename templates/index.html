@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Rule Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      display: flex;
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .navbar a {
+      flex: 1;
+      text-align: center;
+      padding: 14px 16px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-right: 1px solid #555;
+    }
+
+    .navbar a:last-child {
+      border-right: none;
+    }
+
+    .navbar a:hover {
+      background-color: #575757;
+    }
+
+    .navbar a.active {
+      background-color: #04AA6D;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .messages {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .danger {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .warning {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="/create" class="{% if request.path == '/create' %}active{% endif %}">Create</a>
+    <a href="/read" class="{% if request.path == '/read' %}active{% endif %}">Read</a>
+    <a href="/update_form" class="{% if request.path == '/update_form' %}active{% endif %}">Update</a>
+    <a href="/delete_form" class="{% if request.path == '/delete_form' %}active{% endif %}">Delete</a>
+  </div>
+
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="messages {{ category }}">
+            <strong>{{ category.title() }}:</strong> {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    <!-- Page-specific content will go here -->
+    {% endblock %}
+  </div>
+
+</body>
+</html>
